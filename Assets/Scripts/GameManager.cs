@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    public Card firstCard;
+    public Card secondCard;
+
 
     public Text timeTxt;
 
@@ -28,5 +33,19 @@ public class GameManager : MonoBehaviour
     {
         time += Time.deltaTime;
         timeTxt.text = time.ToString("N2");
+    }
+
+    public void Matched() {
+        if (firstCard.idx == secondCard.idx) {
+            firstCard.DestroyCard();
+            secondCard.DestroyCard();
+        }
+        else {
+            firstCard.ClosedCard();
+            secondCard.ClosedCard();
+        }
+
+        firstCard = null;
+        secondCard = null;
     }
 }

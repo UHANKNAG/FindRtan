@@ -11,7 +11,7 @@ public class Card : MonoBehaviour
 
     public SpriteRenderer frontImage;
 
-    int idx = 0;
+    public int idx = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -38,5 +38,35 @@ public class Card : MonoBehaviour
         anim.SetBool("isOpen", true);
         front.SetActive(true);
         back.SetActive(false);
+
+        if (GameManager.Instance.firstCard == null) {// 첫 카드가 비었다면
+        // 첫 카드에 내 정보 넘겨 준다
+            GameManager.Instance.firstCard = this;
+        }
+        else {  // 첫 카드가 비어있지 않다면
+        // 두 번째 카드에 내 정보를 넘겨 준다
+            GameManager.Instance.secondCard = this;
+
+        // Matched 함수를 호출해 준다
+            GameManager.Instance.Matched();
+        }
+    }
+
+    public void DestroyCard() {
+        Invoke("DestroyCardInvoke",  1.0f);
+    }
+
+    void DestroyCardInvoke() {
+        Destroy(gameObject);
+    }
+
+    public void ClosedCard() {
+        Invoke("ClosedCardInvoke",  1.0f);
+    }
+
+    void ClosedCardInvoke() {
+        anim.SetBool("isOpen", false);
+        front.SetActive(false);
+        back.SetActive(true);
     }
 }
