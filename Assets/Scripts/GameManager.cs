@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
 
 
     public Text timeTxt;
+    public GameObject endTxt;
+
+    public int cardCount = 0;
 
     float time = 0.0f;
 
@@ -25,7 +28,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -39,6 +42,12 @@ public class GameManager : MonoBehaviour
         if (firstCard.idx == secondCard.idx) {
             firstCard.DestroyCard();
             secondCard.DestroyCard();
+            cardCount -= 2;
+
+            if (cardCount == 0) {
+                endTxt.SetActive(true);
+                Time.timeScale = 0.0f;
+            }
         }
         else {
             firstCard.ClosedCard();
@@ -48,4 +57,6 @@ public class GameManager : MonoBehaviour
         firstCard = null;
         secondCard = null;
     }
+
+
 }
