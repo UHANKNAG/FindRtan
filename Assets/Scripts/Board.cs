@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Board : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class Board : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int[] arr = {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
+        arr = arr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
+        // OrderBy 오름차순 정렬한다, x => 하나씩 순회한다, Random.Range로 추출된 값을, ToArray 배열로 만들어 준다
+        // 랜덤으로 나온 값을 arr 배열에 넣고 오름차순 정렬... x =>
+
         // 반복 생성을 위하여 반복문 호출
         for (int i = 0; i < 16; i++) {
             GameObject go = Instantiate(card, this.transform); // Board의 자식으로 생성
@@ -18,6 +24,7 @@ public class Board : MonoBehaviour
             // 몫과 나머지를 이용한 배치 전략
 
             go.transform.position = new Vector2(x, y);
+            go.GetComponent<Card>().Setting(arr[i]);
         }
     }
 
