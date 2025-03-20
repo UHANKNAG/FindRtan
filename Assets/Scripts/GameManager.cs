@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public int cardCount = 0;
 
-    float time = 0.0f;
+    float time = 30.0f;
 
     private void Awake() {
         if (Instance == null)
@@ -34,8 +34,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         timeTxt.text = time.ToString("N2");
+
+        if (time <= 0.0f) {
+            endTxt.SetActive(true);
+            Time.timeScale = 0.0f;
+        }
     }
 
     public void Matched() {
@@ -57,6 +62,4 @@ public class GameManager : MonoBehaviour
         firstCard = null;
         secondCard = null;
     }
-
-
 }
