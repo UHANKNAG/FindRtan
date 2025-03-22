@@ -13,7 +13,9 @@ public class Board : MonoBehaviour
         int[] arr = {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
         arr = arr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
         // OrderBy 오름차순 정렬한다, x => 하나씩 순회한다, Random.Range로 추출된 값을, ToArray 배열로 만들어 준다
-        // 랜덤으로 나온 값을 arr 배열에 넣고 오름차순 정렬... x =>
+        // 랜덤으로 값을 불러 원래 arr 배열에 있는 값이랑 매칭시킨다.
+        // 그 후 OrderBy를 통해 랜덤한 값을 기준으로 정렬한 뒤
+        // ToArray를 통해 원래 arr 배열에 있던 값만 다시 배열에 저장한다
 
         // 반복 생성을 위하여 반복문 호출
         for (int i = 0; i < 16; i++) {
