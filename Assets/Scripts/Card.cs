@@ -9,9 +9,16 @@ public class Card : MonoBehaviour
 
     public Animator anim;
 
+    AudioSource audioSource;
+    public AudioClip clip;
+
     public SpriteRenderer frontImage;
 
     public int idx = 0;
+
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
 
 
     // Update is called once per frame
@@ -30,6 +37,11 @@ public class Card : MonoBehaviour
     }
 
     public void OpenCard() {
+        if (GameManager.Instance.secondCard != null) return;
+
+        audioSource.PlayOneShot(clip);
+        // PlayOneShot을 사용하면 다른 Audio Clip끼리 겹치지 않는다
+
         anim.SetBool("isOpen", true);
         front.SetActive(true);
         back.SetActive(false);

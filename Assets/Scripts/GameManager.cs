@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Card firstCard;
     public Card secondCard;
 
+    AudioSource audioSource;
+    public AudioClip clip;
 
     public Text timeTxt;
     public GameObject endTxt;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1.0f;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     public void Matched() {
         if (firstCard.idx == secondCard.idx) {
+            audioSource.PlayOneShot(clip);
+
             firstCard.DestroyCard();
             secondCard.DestroyCard();
             cardCount -= 2;
